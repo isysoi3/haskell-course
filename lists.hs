@@ -45,3 +45,19 @@ tailsX_helper (_:xs) = xs:tailsX_helper xs
 tailsX xs = xs:tailsX_helper xs
 
 -- список всех подможеств
+
+subsets [] = [[]]
+subsets (x:xs) = let s = subsets xs in 
+    s ++ (map (x:) s)
+
+foldX:: (a -> b -> b) -> b -> [a] -> b
+foldX _ b [] = b
+foldX f b (x:xs) = foldX f (f x b) xs 
+
+unfoldX:: Eq a => a -> (a -> (a, b)) -> a -> [b]
+unfoldX t f x = if (x == t) then [] else ((let (x', y') = (f x)) in y:[unfold t f x'])
+
+
+--foldx
+--unfoldX
+--unfold with fib and others 
