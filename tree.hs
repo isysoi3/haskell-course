@@ -30,9 +30,15 @@ toString :: Show t => Tree t -> String
 toString Empty = "."
 toString (Nonempty p l r) = "<" ++ (toString l) ++ "|" ++ (show p) ++ "|" ++ (toString r) ++ ">" 
 
+mapTree :: (a -> b) -> Tree a -> Tree b
+mapTree f Empty = Empty
+mapTree f (Nonempty p l r) = Nonempty (f p) (mapTree f l) (mapTree f r)
+
 instance Show a => Show (Tree a) where
     show = toString
 
+instance Functor Tree where 
+    fmap = mapTree
 
 -- Homework
 -- Array (key value)
